@@ -9,8 +9,8 @@ namespace SonOfCodSeafood.Tests
         [Fact]
         public void Recipient_IsCreated_Test()
         {
-            Recipient recipient = new Recipient(0, "Lila", "lila@mai.com", 99654, 0);
-            Recipient otherRecipient = new Recipient(0, "Lila", "lila@mai.com", 99654, 0);
+            Recipient recipient = new Recipient("Lila", "lila@mai.com");
+            Recipient otherRecipient = new Recipient("Lila", "lila@mai.com");
             Assert.Equal(recipient, otherRecipient);
         }
 

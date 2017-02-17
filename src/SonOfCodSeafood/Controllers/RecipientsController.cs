@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using SonOfCodSeafood.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Diagnostics;
+using SonOfCodSeafood.ViewModels;
+using Microsoft.AspNetCore.Identity;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,26 +19,37 @@ namespace SonOfCodSeafood.Controllers
         // GET: /<controller>/
         public IActionResult Newsletter()
         {
-            ViewBag.Fish = db.Fish.ToList();
+            ViewBag.FishList = db.Fish.ToList();
             return View();
-            }
-        [HttpPost]
-        public IActionResult Subscribe(Recipient recipient, int[] fishIds)
+         }
+        public IActionResult Subscribe(string id)
         {
+            Debug.WriteLine(id + "***************************");
+            Recipient recipient = db.Recipients.FirstOrDefault(r => r.ApplicationUserId.Equals(id));
+            return View(recipient);
+        }
+        [HttpPost]
+        public IActionResult Subscribe(string name, string zipCode, int[] fishIds, string userId)
+        {
+
+            Recipient recipient = new Recipient(name, zipCode);
+            Debug.WriteLine("subscribepost"+userId+"*******************************************");
+            recipient.ApplicationUserId = userId;
             db.Recipients.Add(recipient);
             foreach (var fishId in fishIds)
             {
                 db.FishChoices.Add(new FishChoice(recipient.Id, fishId));
             }
             db.SaveChanges();
-            return View(recipient);
+            Debug.WriteLine(userId+"*******************************************");
+
+            return RedirectToAction("Subscribe", "Recipients", new { id = userId });
         }
         [HttpPost]
         public IActionResult Unsubscribe(string email)
         {
-            Debug.WriteLine("*********************************"+email);
-            Recipient recipient = db.Recipients.FirstOrDefault(r => r.Email == email);
-            db.Recipients.Remove(recipient);
+            ApplicationUser user = db.Users.FirstOrDefault(r => r.Email == email);
+            db.Users.Remove(user);
             db.SaveChanges();
             return RedirectToAction("Index", "Home");
         }

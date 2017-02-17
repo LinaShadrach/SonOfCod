@@ -1,29 +1,38 @@
-﻿@*@{
+﻿@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-}*@
-@model SonOfCodSeafood.Models.Recipient
+}
+@model SonOfCodSeafood.ViewModels.RegisterViewModel
 <h3>@ViewBag.Message</h3>
-@using (Html.BeginForm("SubScribe", "Recipients", FormMethod.Post))
+@using (Html.BeginForm("RegisterUser", "Account", FormMethod.Post))
 {
 
-    @Html.LabelFor(model => model.Name)
-    @Html.EditorFor(model => model.Name)
+    <label for="name">Name: </label>
+    <input type="text" name="name" required />
+
+    <label for="zipCode">Zip Code: </label>
+    <input type="text" name="zipCode" required />
 
     @Html.LabelFor(model => model.Email)
     @Html.EditorFor(model => model.Email)
 
-    @Html.LabelFor(model => model.ZipCode)
-    @Html.EditorFor(model => model.ZipCode)
+    @Html.LabelFor(model => model.Password)
+    @Html.EditorFor(model => model.Password)
+
+
+    @Html.LabelFor(m => m.ConfirmPassword)
+    @Html.PasswordFor(m => m.ConfirmPassword)
+
+    <div class="input-field">
+
 
    <select name="fishIds" multiple>    
-        @foreach (var fish in ViewBag.Fish)
+        @foreach (var fish in ViewBag.FishList)
         {
             <option value=@fish.Id>@fish.Name</option>
         }
     </select>
-
-
+    </div>
     <input type="submit" value="Subscribe" class="btn btn-default" />
 }
 <form action="/Recipients/Unsubscribe" method="post">

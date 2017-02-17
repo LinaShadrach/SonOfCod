@@ -7,6 +7,8 @@ using SonOfCodSeafood.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using SonOfCodSeafood.ViewModels;
+using System.Diagnostics;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -33,6 +35,7 @@ namespace SonOfCodSeafood.Controllers
             return View();
         }
 
+
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
@@ -48,6 +51,7 @@ namespace SonOfCodSeafood.Controllers
                 return View();
             }
         }
+        
 
         [HttpPost]
         public async Task<IActionResult> RegisterLogin(ApplicationUser user, string password)
@@ -62,6 +66,22 @@ namespace SonOfCodSeafood.Controllers
             else
             {
                 return RedirectToAction("Register");
+            }
+        }
+        [HttpPost]
+        public async Task<IActionResult> RegisterUser(RegisterViewModel model, string name, string zipCode, int[] fishIds)
+        {
+            ApplicationUser user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+            IdentityResult result = await _userManager.CreateAsync(user, model.Password);
+            if (result.Succeeded)
+            {
+                Debug.WriteLine("Account"+user.Id + "*******************************************");
+                RecipientsController recipientsController = new RecipientsController();
+                return recipientsController.Subscribe(name, zipCode, fishIds, user.Id );
+            }
+            else
+            {
+                return View();
             }
         }
         public IActionResult Login()
