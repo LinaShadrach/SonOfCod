@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using System.Security.Claims
+
+
+<div class="container">
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <h4>Hello @User.Identity.Name!</h4>
+
+        <hr />
+        @if (ViewBag.name != "")
+        {
+            <p>@Html.ActionLink($"Resume Game with player: {ViewBag.name}", "Details", "Locations")</p>
+        }
+        else
+        {
+            <p>@Html.ActionLink("Create Player", "Create", "Players", new { id = User.Identity.Name })</p>
+        }
+
+    }
+    else
+    {
+        <p>@Html.ActionLink("Register", "Register")</p>
+        <p>@Html.ActionLink("Log in", "Login")</p>
+    }
+</div>
