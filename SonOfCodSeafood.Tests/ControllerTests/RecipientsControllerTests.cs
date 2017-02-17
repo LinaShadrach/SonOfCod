@@ -20,13 +20,15 @@ namespace SonOfCodSeafood.Tests.ControllerTests
             Assert.IsType<ViewResult>(result);
         }
         [Fact]
-        public void GetModelRecipient_Newsletter()
+        public void GetModelRecipient_Newsletter_Signup()
         {
             //Arrange
-            ViewResult newsletterView = new RecipientsController().Newsletter() as ViewResult;
+            Recipient recipient = new Recipient(0, "Lila", "lila@mai.com", 99654, 0);
+            List<Fish> fish = new List<Fish>() { new Fish("halibut"), new Fish("salmon")};
+            ViewResult signUpView = new RecipientsController().SignUp(recipient, fish) as ViewResult;
 
             //Act
-            var result = newsletterView.ViewData.Model;
+            var result = signUpView.ViewData.Model;
 
             //Assert
             Assert.IsType<Recipient>(result);

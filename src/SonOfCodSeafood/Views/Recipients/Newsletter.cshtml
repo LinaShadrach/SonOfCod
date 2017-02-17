@@ -1,9 +1,10 @@
-﻿@{
+﻿@*@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-}
+}*@
 @model SonOfCodSeafood.Models.Recipient
-@using (Html.BeginForm())
+<h3>@ViewBag.Message</h3>
+@using (Html.BeginForm("SignUp", "Recipients", FormMethod.Post))
 {
 
     @Html.LabelFor(model => model.Name)
@@ -15,6 +16,14 @@
     @Html.LabelFor(model => model.ZipCode)
     @Html.EditorFor(model => model.ZipCode)
 
-    <input type="submit" value="Create" class="btn btn-default" />
+    <select name="Fish" multiple>    
+        @foreach (var fish in ViewBag.Fish)
+        {
+            <option value=@fish.Id>@fish.Name </option>
+        }
+    </select>
+
+
+    <input type="submit" value="Sign Up" class="btn btn-default" />
 }
 
