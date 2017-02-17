@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model SonOfCodSeafood.Models.Recipient
+@using (Html.BeginForm())
+{
+
+    @Html.LabelFor(model => model.Name)
+    @Html.EditorFor(model => model.Name)
+
+    @Html.LabelFor(model => model.Email)
+    @Html.EditorFor(model => model.Email)
+
+    @Html.LabelFor(model => model.ZipCode)
+    @Html.EditorFor(model => model.ZipCode)
+
+    <input type="submit" value="Create" class="btn btn-default" />
+}
+

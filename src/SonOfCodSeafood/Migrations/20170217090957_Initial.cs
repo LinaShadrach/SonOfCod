@@ -83,7 +83,7 @@ namespace SonOfCodSeafood.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Email = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
-                    ZipCode = table.Column<int>(nullable: false)
+                    ZipCode = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
