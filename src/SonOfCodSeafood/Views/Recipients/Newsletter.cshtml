@@ -16,10 +16,10 @@
     @Html.LabelFor(model => model.ZipCode)
     @Html.EditorFor(model => model.ZipCode)
 
-    <select name="Fish" multiple>    
+   <select name="fishIds" multiple>    
         @foreach (var fish in ViewBag.Fish)
         {
-            <option value=@fish.Id>@fish.Name </option>
+            <option value=@fish.Id>@fish.Name</option>
         }
     </select>
 

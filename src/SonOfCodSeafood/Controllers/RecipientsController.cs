@@ -17,18 +17,18 @@ namespace SonOfCodSeafood.Controllers
         // GET: /<controller>/
         public IActionResult Newsletter()
         {
-            Debug.WriteLine("***************************************");
-            foreach(Fish fish in db.Fish.ToList())
-            {
-                Debug.WriteLine(fish.Id + "***********" + fish.Name);
-            }
-            ViewBag.Fish = new SelectList(db.Fish, "FishId", "Name");
+            ViewBag.Fish = db.Fish.ToList();
             return View();
             }
         [HttpPost]
-        public IActionResult SignUp(Recipient recipient, List<Fish> Fish)
+        public IActionResult SignUp(Recipient recipient, int[] fishIds)
         {
             db.Recipients.Add(recipient);
+            foreach (var fishId in fishIds)
+            {
+                Debug.WriteLine(fishId+"**********************************");
+                db.FishChoices.Add(new FishChoice(recipient.Id, fishId));
+            }
             db.SaveChanges();
             return View(recipient);
         }

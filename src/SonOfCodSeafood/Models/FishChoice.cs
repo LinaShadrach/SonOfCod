@@ -17,5 +17,10 @@ namespace SonOfCodSeafood.Models
         public virtual Fish Fish { get; set; }
         public virtual Recipient Recipient { get; set; }
         public int RecipientId { get; set; }
+        public FishChoice(int recipientId, int fishId)
+        {
+            FishId = fishId;
+            RecipientId = recipientId;
+        }
     }
 }
