@@ -8,7 +8,7 @@ using SonOfCodSeafood.Models;
 namespace SonOfCodSeafood.Migrations
 {
     [DbContext(typeof(SonOfCodSeafoodContext))]
-    [Migration("20170217065916_Initial")]
+    [Migration("20170217090957_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -208,17 +208,13 @@ namespace SonOfCodSeafood.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ApplicationUserId");
+                    b.Property<string>("Email");
 
                     b.Property<string>("Name");
-
-                    b.Property<int>("UserId");
 
                     b.Property<int>("ZipCode");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
 
                     b.ToTable("Recipents");
                 });
@@ -271,13 +267,6 @@ namespace SonOfCodSeafood.Migrations
                         .WithMany()
                         .HasForeignKey("RecipientId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("SonOfCodSeafood.Models.Recipient", b =>
-                {
-                    b.HasOne("SonOfCodSeafood.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("ApplicationUserId");
                 });
         }
     }

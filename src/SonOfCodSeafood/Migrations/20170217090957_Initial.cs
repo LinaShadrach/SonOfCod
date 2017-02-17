@@ -76,6 +76,21 @@ namespace SonOfCodSeafood.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Recipents",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Email = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    ZipCode = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Recipents", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -162,28 +177,6 @@ namespace SonOfCodSeafood.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Recipents",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ApplicationUserId = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    UserId = table.Column<int>(nullable: false),
-                    ZipCode = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Recipents", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Recipents_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "FishChoices",
                 columns: table => new
                 {
@@ -259,11 +252,6 @@ namespace SonOfCodSeafood.Migrations
                 name: "IX_FishChoices_RecipientId",
                 table: "FishChoices",
                 column: "RecipientId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Recipents_ApplicationUserId",
-                table: "Recipents",
-                column: "ApplicationUserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -290,13 +278,13 @@ namespace SonOfCodSeafood.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
                 name: "Fish");
 
             migrationBuilder.DropTable(
                 name: "Recipents");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUsers");
         }
     }
 }
