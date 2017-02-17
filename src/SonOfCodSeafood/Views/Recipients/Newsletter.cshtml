@@ -4,7 +4,7 @@
 }*@
 @model SonOfCodSeafood.Models.Recipient
 <h3>@ViewBag.Message</h3>
-@using (Html.BeginForm("SignUp", "Recipients", FormMethod.Post))
+@using (Html.BeginForm("SubScribe", "Recipients", FormMethod.Post))
 {
 
     @Html.LabelFor(model => model.Name)
@@ -24,6 +24,14 @@
     </select>
 
 
-    <input type="submit" value="Sign Up" class="btn btn-default" />
+    <input type="submit" value="Subscribe" class="btn btn-default" />
 }
+<form action="/Recipients/Unsubscribe" method="post">
+    <label for="email">Email: </label>
+    <input type="text" name="email" required />
+
+    <input type="submit" value="Unsubscribe" class="btn btn-default" />
+</form>
+
+
 

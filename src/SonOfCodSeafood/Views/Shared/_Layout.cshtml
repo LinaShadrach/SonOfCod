@@ -17,7 +17,7 @@
                 @if (User.Identity.IsAuthenticated)
                 {
                     <li>@Html.ActionLink("Newsletter Mailing List", "Newsletter", "Admin")</li>
-
+                    <li>@Html.ActionLink("Register a new admin", "Create", "Admin")</li>
                 }
                 else
                 {

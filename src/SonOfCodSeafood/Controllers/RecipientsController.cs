@@ -21,16 +21,24 @@ namespace SonOfCodSeafood.Controllers
             return View();
             }
         [HttpPost]
-        public IActionResult SignUp(Recipient recipient, int[] fishIds)
+        public IActionResult Subscribe(Recipient recipient, int[] fishIds)
         {
             db.Recipients.Add(recipient);
             foreach (var fishId in fishIds)
             {
-                Debug.WriteLine(fishId+"**********************************");
                 db.FishChoices.Add(new FishChoice(recipient.Id, fishId));
             }
             db.SaveChanges();
             return View(recipient);
+        }
+        [HttpPost]
+        public IActionResult Unsubscribe(string email)
+        {
+            Debug.WriteLine("*********************************"+email);
+            Recipient recipient = db.Recipients.FirstOrDefault(r => r.Email == email);
+            db.Recipients.Remove(recipient);
+            db.SaveChanges();
+            return RedirectToAction("Index", "Home");
         }
     }
 }
