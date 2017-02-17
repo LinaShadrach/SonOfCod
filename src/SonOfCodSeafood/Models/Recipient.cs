@@ -16,7 +16,7 @@ namespace SonOfCodSeafood.Models
         public string Email { get; set; }
         public int ZipCode { get; set; }
         public int UserId { get; set; }
-        public virtual ApplicationUser ApplicationUser { get; set; }
+        //public virtual ApplicationUser ApplicationUser { get; set; }
 
         public Recipient()
         {
@@ -27,7 +27,7 @@ namespace SonOfCodSeafood.Models
             Name = name;
             Email = email;
             ZipCode = zipCode;
-            UserId = userId;
+            //UserId = userId;
         }
         public override bool Equals(System.Object otherRecipient)
         {
@@ -41,9 +41,9 @@ namespace SonOfCodSeafood.Models
                 bool nameEquality = (this.Name == newRecipient.Name);
                 bool emailEquality = (this.Email == newRecipient.Email);
                 bool zipCodeEquality = (this.ZipCode == newRecipient.ZipCode);
-                bool userIdEquality = (this.UserId == newRecipient.UserId);
+                //bool userIdEquality = (this.UserId == newRecipient.UserId);
 
-                return (nameEquality && emailEquality && zipCodeEquality && userIdEquality);
+                return (nameEquality && emailEquality && zipCodeEquality);
             }
         }
         public override int GetHashCode()

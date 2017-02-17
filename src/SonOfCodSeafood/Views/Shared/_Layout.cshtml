@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
+    <link href="~/css/styles.css" type="text/css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <nav class="blue lighten-2">
+        <div class="nav-wrapper">
+            <span class="brand-logo center">@Html.ActionLink("Son of Cod Seafood!", "Index", "Marketplace")</span>
+            <ul class="right">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li>@Html.ActionLink("Newsletter Mailing List", "Newsletter", "Admin")</li>
+
+                }
+                else
+                {
+
+                    <li>@Html.ActionLink("Admin", "Index", "Account")</li>
+                }
+
+            </ul>
+            @if (User.Identity.IsAuthenticated)
+            {
+                @using (Html.BeginForm("LogOff", "Account"))
+                {
+                    <input type="submit" class="btn btn-default" value="Log out" />
+                }
+            }
+
+        </div>
+    </nav>
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>
