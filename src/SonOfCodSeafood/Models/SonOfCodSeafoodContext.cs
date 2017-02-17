@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace SonOfCodSeafood.Models
 {
-    public class SeaOfCodSeafoodContext : IdentityDbContext<ApplicationUser>
+    public class SonOfCodSeafoodContext : IdentityDbContext<ApplicationUser>
     {
-        public SeaOfCodSeafoodContext()
+        public SonOfCodSeafoodContext()
         {
         }
         public DbSet<Recipient> Recipients { get; set; }
         public DbSet<Fish> Fish { get; set; }
         public DbSet<FishChoice> FishChoices { get; set; }
-        public SeaOfCodSeafoodContext(DbContextOptions options) : base(options)
+        public SonOfCodSeafoodContext(DbContextOptions options) : base(options)
         {
         }
         protected override void OnConfiguring(DbContextOptionsBuilder options)

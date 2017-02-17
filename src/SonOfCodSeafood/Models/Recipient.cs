@@ -15,6 +15,6 @@ namespace SonOfCodSeafood.Models
         public string Name { get; set; }
         public int ZipCode { get; set; }
         public int UserId { get; set; }
-        public virtual ApplicationUser User { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }

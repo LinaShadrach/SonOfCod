@@ -1,5 +1,4 @@
-﻿ (47 sloc)  1.84 KB
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,7 +9,7 @@ using SonOfCodSeafood.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 
-namespace basicRPG
+namespace SonOfCodSeafood
 {
     public class Startup
     {
