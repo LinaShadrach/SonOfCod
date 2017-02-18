@@ -111,5 +111,10 @@ namespace SonOfCodSeafood.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+        [HttpPost]
+        public IActionResult GrantAdmin()
+        {
+            return View("Newsletter","Admin");
+        }
     }
 }
