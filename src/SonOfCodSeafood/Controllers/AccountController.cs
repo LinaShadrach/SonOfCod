@@ -112,9 +112,19 @@ namespace SonOfCodSeafood.Controllers
             return RedirectToAction("Index", "Home");
         }
         [HttpPost]
-        public IActionResult GrantAdmin()
+        public async Task<IActionResult> GrantAdmin(int RecipientId)
         {
-            return View("Newsletter","Admin");
+            Debug.WriteLine("**************************"+RecipientId);
+            Recipient recipient = _db.Recipients.FirstOrDefault(r => r.Id == RecipientId);
+            ApplicationUser user = _db.Users.Where(u => u.Id.Equals(recipient.ApplicationUserId, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
+            if (_userManager.IsInRoleAsync(user, "user").Result)
+            {
+               await _userManager.RemoveFromRoleAsync(user, "user");
+            }
+            Debug.WriteLine("**************************" + user.Id);
+           await _userManager.AddToRoleAsync(user, "admin");
+            _db.SaveChanges();
+            return RedirectToAction("Newsletter", "Admin");
         }
     }
 }

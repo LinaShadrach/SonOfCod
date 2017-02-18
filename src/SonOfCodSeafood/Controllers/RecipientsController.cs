@@ -50,14 +50,13 @@ namespace SonOfCodSeafood.Controllers
             db.SaveChanges();
             return RedirectToAction("Index", "Home");
         }
- 
         public IActionResult UnsubscribeUser(int RecipientId)
         {
-            Debug.WriteLine("**************");
             Recipient recipient = db.Recipients.FirstOrDefault(r => r.Id == RecipientId);
             db.Recipients.Remove(recipient);
             db.SaveChanges();
             return RedirectToAction("Newsletter", "Admin");
         }
+
     }
 }
