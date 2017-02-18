@@ -24,7 +24,6 @@ namespace SonOfCodSeafood.Controllers
          }
         public IActionResult Subscribe(string id)
         {
-            Debug.WriteLine(id + "***************************");
             Recipient recipient = db.Recipients.FirstOrDefault(r => r.ApplicationUserId.Equals(id));
             return View(recipient);
         }
@@ -33,7 +32,6 @@ namespace SonOfCodSeafood.Controllers
         {
 
             Recipient recipient = new Recipient(name, zipCode);
-            Debug.WriteLine("subscribepost"+userId+"*******************************************");
             recipient.ApplicationUserId = userId;
             db.Recipients.Add(recipient);
             foreach (var fishId in fishIds)
@@ -41,7 +39,6 @@ namespace SonOfCodSeafood.Controllers
                 db.FishChoices.Add(new FishChoice(recipient.Id, fishId));
             }
             db.SaveChanges();
-            Debug.WriteLine(userId+"*******************************************");
 
             return RedirectToAction("Subscribe", "Recipients", new { id = userId });
         }
