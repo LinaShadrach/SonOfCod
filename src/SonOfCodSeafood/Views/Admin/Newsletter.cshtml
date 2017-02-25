@@ -26,20 +26,25 @@
                 @Html.DisplayFor(modelItem => recipient.ZipCode)
             </td>
  
-            <td>
+            <td>        
              <form action="/Recipients/UnsubscribeUser" method="post">
                  <input type="hidden" value="@recipient.Id" name="RecipientId"/>
                 <input type="submit" value="Remove" class="btn btn-default" />
              </form>
-
-
             </td>
+            @if (ViewBag.IsSuperAdmin)
+            {
             <td>
-                <form action="/Account/GrantAdmin" method="post">
-                    <input type="hidden" value="@recipient.Id" name="RecipientId" />
-                    <input type="submit" value="Grant Admin" class="btn btn-info" />
-                </form>
+                @if(recipient.ApplicationUser.Roles.FirstOrDefault( r=> r.RoleId=="1")==null)
+                {
+                    <form action="/Account/GrantAdmin" method="post">
+                        <input type="hidden" value="@recipient.Id" name="RecipientId" />
+                        <input type="submit" value="Grant Admin" class="btn btn-info" />
+                    </form>
+                }
             </td>
+            }
+
         </tr>
     }
 </table>

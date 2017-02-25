@@ -38,14 +38,14 @@ namespace SonOfCodSeafood.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel model)
+        public async Task<IActionResult> Register(RegisterViewModel model, string adminPassword)
         {
             ApplicationUser user = new ApplicationUser { UserName = model.Email, Email = model.Email };
 
             IdentityResult result = await _userManager.CreateAsync(user, model.Password);
-            if (result.Succeeded)
+            if (result.Succeeded && (adminPassword=="admin"))
             {
-                await _userManager.AddToRoleAsync(user, "admin");
+                await _userManager.AddToRoleAsync(user, "superadmin");
                 return await RegisterLogin(user, model.Password);
             }
             else
@@ -95,7 +95,10 @@ namespace SonOfCodSeafood.Controllers
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, isPersistent: true, lockoutOnFailure: false);
-            if (result.Succeeded)
+            ApplicationUser user = await _userManager.FindByEmailAsync(model.Email);
+
+            bool isAdmin= await _userManager.IsInRoleAsync(user, "admin");
+            if (result.Succeeded && isAdmin)
             {
                 string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                 return RedirectToAction("Index", "Home");
@@ -114,14 +117,12 @@ namespace SonOfCodSeafood.Controllers
         [HttpPost]
         public async Task<IActionResult> GrantAdmin(int RecipientId)
         {
-            Debug.WriteLine("**************************"+RecipientId);
             Recipient recipient = _db.Recipients.FirstOrDefault(r => r.Id == RecipientId);
             ApplicationUser user = _db.Users.Where(u => u.Id.Equals(recipient.ApplicationUserId, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
             if (_userManager.IsInRoleAsync(user, "user").Result)
             {
                await _userManager.RemoveFromRoleAsync(user, "user");
             }
-            Debug.WriteLine("**************************" + user.Id);
            await _userManager.AddToRoleAsync(user, "admin");
             _db.SaveChanges();
             return RedirectToAction("Newsletter", "Admin");

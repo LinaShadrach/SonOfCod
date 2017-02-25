@@ -5,28 +5,27 @@
 #### By _Lina Shadrach_
 
 ## Description
-_This app allows an admin to manage a who subscribes to a newsletter and who has access to administrative areas of the site. A user is able to login, subscribe to, and unsubscribe from the newsletter._
+_This app allows an admin to manage a who subscribes to a newsletter. A user is able to login, subscribe to, and unsubscribe from the newsletter. To register initially as a super admin, a super-admin should use enter 'admin' into the 'super-admin password' input field. Only super-admin are permitted to grant amin powers to other users._
 
 ## Development framework
 This project was generated with [.NET Core](https://www.microsoft.com/net/core#windowsvs2015).
-
-## Database
-This project's database is managed using [SSMS](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms)
-
-To regenerate this database shema, establish a connection to your local server through SSMS, build the project, then run the commands:
-
-* > dotnet ef migrations Initial 
-* > dotnet ef database update
-
-in the CLI while located in src/SonOfCodSeafood folder of this project.
 
 ## Installation
 
 * `git clone <https://github.com/LinaShadrach/SonOfCodSeafood>`
 
+## Database
+This project's database is managed using [SSMS](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms)
+
+To regenerate this database shema and necesary seed data:
+* establish a connection to your local server through SSMS
+* open the file in the project folder labeled "schema&seedData.sql"
+* execute the sql file
+* !IMPORTANT! enter 'admin' into the 'super-admin password' field to register as a super-admin !Important!
+
 ## Known Bugs
 
-_As of now, anyone can add themself as an administrator._
+None known.._
 
 ## Support and contact details
 _Please contact author through GitHub at username: LinaShadrach_

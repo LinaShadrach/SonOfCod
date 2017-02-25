@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using SonOfCodSeafood.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-
+using Microsoft.Extensions.Logging;
 
 namespace SonOfCodSeafood
 {
@@ -32,8 +32,14 @@ namespace SonOfCodSeafood
                 .AddDefaultTokenProviders();
         }
 
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            app.UseStaticFiles();
+            loggerFactory.AddConsole();
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
             app.UseIdentity();
             app.UseStaticFiles();
             app.UseMvc(routes =>
